@@ -1,6 +1,8 @@
+"""
+DynamoDBのテーブル作成用ファイル
+"""
 from logging import getLogger
 
-import boto3
 from botocore.exceptions import ClientError
 
 # ロガーの作成
@@ -74,5 +76,5 @@ def create_table_if_not_exists(resource, table_name: str, key_schema: list[dict]
         if e.response["Error"]["Code"] == "ResourceInUseException":
             logger.info({"status": "success", "message": f"Table {table_name} is exist."})
             return resource.Table(table_name)
-        else:
-            raise
+
+        raise

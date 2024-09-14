@@ -1,13 +1,21 @@
+"""
+DynamoDB テーブル削除用ファイル
+"""
 from logging import getLogger
 
-import boto3
 from botocore.exceptions import ClientError
 
 # ロガーの作成
 logger = getLogger(__name__)
 
 
-def delete_table(client, table_name: str):
+def delete_table(client, table_name: str) -> None:
+    """テーブル削除
+
+    Args:
+        client (_type_): _description_
+        table_name (str): テーブル名
+    """
     logger.debug({"startus": "start", "params": {"client": client, "table_name": table_name}})
     try:
         # テーブルの削除を実行

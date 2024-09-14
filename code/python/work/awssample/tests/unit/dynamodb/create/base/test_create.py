@@ -2,16 +2,18 @@ import logging
 
 import boto3
 from awssample.dynamodb.create.base.create import (create_table, create_table_if_not_exists)
+from moto import mock_aws
 
 logging.getLogger("botocore").setLevel(logging.ERROR)
 logging.getLogger("urllib3").setLevel(logging.ERROR)
 logging.getLogger("boto3").setLevel(logging.ERROR)
 
 
+@mock_aws
 def test_create_table():
 
     resource = boto3.resource("dynamodb")
-    keySchema = [{
+    key_schema = [{
         "AttributeName": "id",  # パーティションキーの属性名
         "KeyType": "HASH"  # パーティションキー
     }]
@@ -25,6 +27,6 @@ def test_create_table():
         "ReadCapacityUnits": 5,  # 読み取りキャパシティ
         "WriteCapacityUnits": 5  # 書き込みキャパシティ
     }
-    table = create_table_if_not_exists(resource, "sample_table5", keySchema, attribute_definitions,
+    table = create_table_if_not_exists(resource, "sample_table2", key_schema, attribute_definitions,
                                        provisioned_throughput)
     assert table
