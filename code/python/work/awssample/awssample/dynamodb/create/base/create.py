@@ -7,33 +7,9 @@ from botocore.exceptions import ClientError
 logger = getLogger(__name__)
 
 
-def create_table_simple(resource, table_name: str):
-    """シンプルなテーブルの作成
-
-    Args:
-        resource (_type_): _description_
-        table_name (str): テーブル名
-    """
-    keySchema = [{
-        "AttributeName": "id",  # パーティションキーの属性名
-        "KeyType": "HASH"  # パーティションキー
-    }]
-
-    attribute_definitions = [{
-        "AttributeName": "id",
-        "AttributeType": "S"  # 文字列型 (S: String, N: Number, B: Binary)
-    }]
-
-    provisioned_throughput = {
-        "ReadCapacityUnits": 5,  # 読み取りキャパシティ
-        "WriteCapacityUnits": 5  # 書き込みキャパシティ
-    }
-    create_table(resource, table_name, keySchema, attribute_definitions, provisioned_throughput)
-
-
 def create_table(resource, table_name: str, key_schema: list[dict],
                  attribute_definitions: list[dict], provisioned_throughput: dict):
-    """テーブル作成
+    """テーブル作成。作成後待機。
 
     Args:
         resource (_type_): _description_
@@ -69,6 +45,17 @@ def create_table(resource, table_name: str, key_schema: list[dict],
 
 def create_table_if_not_exists(resource, table_name: str, key_schema: list[dict],
                                attribute_definitions: list[dict], provisioned_throughput: dict):
+    """テーブルが存在しない場合は作成する
+    Args:
+        resource (_type_): _description_
+        table_name (str): _description_
+        key_schema (list[dict]): _description_
+        attribute_definitions (list[dict]): _description_
+        provisioned_throughput (dict): _description_
+
+    Returns:
+        _type_: _description_
+    """
     logger.debug({"startus": "start", "params": {"resource": resource, "table_name": table_name}})
 
     # 既存のテーブルの一覧を取得
