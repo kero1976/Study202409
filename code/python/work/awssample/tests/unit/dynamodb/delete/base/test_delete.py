@@ -3,9 +3,9 @@ import logging
 import boto3
 from awssample.dynamodb.delete.base.delete import delete_table
 
-logging.getLogger("botocore").setLevel(logging.ERROR)
-logging.getLogger("urllib3").setLevel(logging.ERROR)
-logging.getLogger("boto3").setLevel(logging.ERROR)
+# logging.getLogger("botocore").setLevel(logging.ERROR)
+# logging.getLogger("urllib3").setLevel(logging.ERROR)
+# logging.getLogger("boto3").setLevel(logging.ERROR)
 
 
 def test_delete_table():
