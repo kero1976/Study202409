@@ -3,35 +3,46 @@ DynamoDBのテーブル作成用ファイル
 """
 from logging import getLogger
 
+from awssample.connect.connect import Connect
 from awssample.dynamodb.create.base.create import create_table_if_not_exists
+from awssample.dynamodb.exception import DynamoDBException
 
 # ロガーの作成
 logger = getLogger(__name__)
 
 
-def create_table(resource, table_name: str) -> None:
-    """テーブル作成(冪等)
+class Create():
 
-    Args:
-        resource (_type_): _description_
-        table_name (str): _description_
-    """
-    logger.debug({"startus": "start", "params": {"resource": resource, "table_name": table_name}})
-    key_schema = [{
-        "AttributeName": "id",  # パーティションキーの属性名
-        "KeyType": "HASH"  # パーティションキー
-    }]
+    def __init__(self, connect: Connect):
+        self.connect = connect
 
-    attribute_definitions = [{
-        "AttributeName": "id",
-        "AttributeType": "S"  # 文字列型 (S: String, N: Number, B: Binary)
-    }]
+    def create_table(self, table_name: str) -> bool:
+        """テーブル作成(冪等)
 
-    provisioned_throughput = {
-        "ReadCapacityUnits": 5,  # 読み取りキャパシティ
-        "WriteCapacityUnits": 5  # 書き込みキャパシティ
-    }
-    create_table_if_not_exists(resource, table_name, key_schema, attribute_definitions,
-                               provisioned_throughput)
+        Args:
+            table_name (str): _description_
+        """
+        logger.debug({"startus": "start", "params": {"table_name": table_name}})
+        key_schema = [{
+            "AttributeName": "id",  # パーティションキーの属性名
+            "KeyType": "HASH"  # パーティションキー
+        }]
 
-    logger.info({"status": "success"})
+        attribute_definitions = [{
+            "AttributeName": "id",
+            "AttributeType": "S"  # 文字列型 (S: String, N: Number, B: Binary)
+        }]
+
+        provisioned_throughput = {
+            "ReadCapacityUnits": 5,  # 読み取りキャパシティ
+            "WriteCapacityUnits": 5  # 書き込みキャパシティ
+        }
+        try:
+            create_table_if_not_exists(self.connect.get_resource(), table_name, key_schema,
+                                       attribute_definitions, provisioned_throughput)
+
+            logger.info({"status": "success"})
+            return True
+        except DynamoDBException as e:
+            logger.error({"status": "fail", "exception": e})
+            return False

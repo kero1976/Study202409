@@ -4,6 +4,7 @@ from unittest.mock import MagicMock, patch
 import boto3
 import pytest
 from awssample.dynamodb.create.base.create import create_table_if_not_exists
+from awssample.dynamodb.exception import DynamoDBException
 from botocore.exceptions import ClientError
 from moto import mock_aws
 
@@ -95,9 +96,9 @@ def test_create_table_raises_unexpected_error():
     # create_table関数をモックして、ClientErrorを発生させる
     with patch(TEST_METHOD_NAME, side_effect=client_error):
         # 例外が発生するかを確認
-        with pytest.raises(ClientError) as exc_info:
+        with pytest.raises(DynamoDBException) as exc_info:
             create_table_if_not_exists(resource_mock, table_name, key_schema, attribute_definitions,
                                        provisioned_throughput)
 
         # エラーメッセージを確認
-        assert exc_info.value.response["Error"]["Code"] == "AccessDeniedException"
+        assert exc_info.value.e.response["Error"]["Code"] == "AccessDeniedException"

@@ -1,7 +1,7 @@
 import logging
 
 import boto3
-from awssample.dynamodb.delete.base.delete import delete_table
+from awssample.dynamodb.drop.base.delete import delete_table
 
 # logging.getLogger("botocore").setLevel(logging.ERROR)
 # logging.getLogger("urllib3").setLevel(logging.ERROR)

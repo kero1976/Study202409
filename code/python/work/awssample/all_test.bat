@@ -18,4 +18,3 @@ if %errorlevel% neq 0 (
     echo Tests passed successfully.
 )
 
-pause
