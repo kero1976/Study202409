@@ -20,7 +20,7 @@ C:\Users\{ユーザー名}\AppData\Roaming\Code\User
 ・作者：マイクロソフト
 ・インストールされていた
 
-# Mypy Type Checke
+# Mypy Type Checker
 ・機能：Pythonコードの変数や引数の型チェックします
 ・作者：マイクロソフト
 ・インストールが必要
@@ -37,3 +37,9 @@ C:\Users\{ユーザー名}\AppData\Roaming\Code\User
 
 # Code Spell Checker
 ・機能：スペルミス対策
+## 使い方
+誤検知のワードを発見！！
+カーソルをキーワードの上へ移動
+shift + command + p でコマンドパレットを開く
+Add Word to Global Dictionary を選択して ⏎
+既にキーワードがデフォルト値として入力されているので問題なければ ⏎
