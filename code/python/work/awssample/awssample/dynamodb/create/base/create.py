@@ -60,14 +60,13 @@ def create_table_if_not_exists(resource, table_name: str, key_schema: list[dict]
         _type_: _description_
     """
     logger.debug({"startus": "start", "params": {"resource": resource, "table_name": table_name}})
-
-    # 既存のテーブルの一覧を取得
-    existing_tables = resource.tables.all()
-    if any(table.name == table_name for table in existing_tables):
-        logger.info({"status": "success", "message": f"Table {table_name} is exist."})
-        return resource.Table(table_name)
-
     try:
+        # 既存のテーブルの一覧を取得
+        existing_tables = resource.tables.all()
+        if any(table.name == table_name for table in existing_tables):
+            logger.info({"status": "success", "message": f"Table {table_name} is exist."})
+            return resource.Table(table_name)
+
         table = create_table(resource, table_name, key_schema, attribute_definitions,
                              provisioned_throughput)
         logger.info({"status": "success", "message": f"Table {table_name} is created."})
@@ -77,5 +76,8 @@ def create_table_if_not_exists(resource, table_name: str, key_schema: list[dict]
         if e.response["Error"]["Code"] == "ResourceInUseException":
             logger.info({"status": "success", "message": f"Table {table_name} is exist."})
             return resource.Table(table_name)
-
+        logger.error({"status": "fail", "message": "ClientError", "exception": e})
+        raise DynamoDBException("create error.", e) from e
+    except Exception as e:
+        logger.error({"status": "fail", "message": "Other Error", "exception": e})
         raise DynamoDBException("create error.", e) from e

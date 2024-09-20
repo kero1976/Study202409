@@ -1,3 +1,7 @@
+"""DynamoDB用Exception
+"""
+
+
 class DynamoDBException(Exception):
     """DynamoDB用Exception
 

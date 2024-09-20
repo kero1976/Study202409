@@ -12,6 +12,8 @@ logger = getLogger(__name__)
 
 
 class Create():
+    """DynamoDBのテーブル作成用クラス
+    """
 
     def __init__(self, connect: Connect):
         self.connect = connect
