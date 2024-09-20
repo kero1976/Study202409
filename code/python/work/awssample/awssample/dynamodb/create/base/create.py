@@ -16,7 +16,7 @@ def create_table(resource, table_name: str, key_schema: list[dict],
 
     Args:
         resource (_type_): _description_
-        table_name (str): _description_
+        table_name (str): テーブル名
         key_schema (list[dict]): _description_
         attribute_definitions (list[dict]): _description_
         provisioned_throughput (dict): _description_
