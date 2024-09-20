@@ -16,7 +16,7 @@ def delete_table(client, table_name: str) -> None:
         client (_type_): _description_
         table_name (str): テーブル名
     """
-    logger.debug({"startus": "start", "params": {"client": client, "table_name": table_name}})
+    logger.debug({"status": "start", "params": {"client": client, "table_name": table_name}})
     try:
         # テーブルの削除を実行
         client.delete_table(TableName=table_name)
@@ -31,4 +31,5 @@ def delete_table(client, table_name: str) -> None:
         if e.response["Error"]["Code"] == "ResourceNotFoundException":
             logger.info({"status": "success", "message": f"Table {table_name} does not exist."})
         else:
+            logger.error({"status": "fail", "message": "ClientError", "exception": e})
             raise

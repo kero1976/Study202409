@@ -22,7 +22,7 @@ def create_table(resource, table_name: str, key_schema: list[dict],
         provisioned_throughput (dict): _description_
     """
     logger.debug({
-        "startus": "start",
+        "status": "start",
         "params": {
             "resource": resource,
             "table_name": table_name,
@@ -41,7 +41,7 @@ def create_table(resource, table_name: str, key_schema: list[dict],
 
     # テーブルが作成されるまで待機
     table.meta.client.get_waiter("table_exists").wait(TableName=table_name)
-    logger.info({"startus": "success", "result": table})
+    logger.info({"status": "success", "result": table})
 
     return table
 
@@ -59,7 +59,7 @@ def create_table_if_not_exists(resource, table_name: str, key_schema: list[dict]
     Returns:
         _type_: _description_
     """
-    logger.debug({"startus": "start", "params": {"resource": resource, "table_name": table_name}})
+    logger.debug({"status": "start", "params": {"resource": resource, "table_name": table_name}})
     try:
         # 既存のテーブルの一覧を取得
         existing_tables = resource.tables.all()

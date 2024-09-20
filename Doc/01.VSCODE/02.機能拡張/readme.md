@@ -34,3 +34,6 @@ C:\Users\{ユーザー名}\AppData\Roaming\Code\User
 ・機能：Pythonコードのインポート文を整理し、保存時に自動で整形します
 ・作者：マイクロソフト
 ・インストールが必要
+
+# Code Spell Checker
+・機能：スペルミス対策

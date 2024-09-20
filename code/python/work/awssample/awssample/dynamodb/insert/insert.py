@@ -21,7 +21,7 @@ def add_item2(connect: Connect, table_name: str, item: dict):
     :return: 成功した場合はTrue、失敗した場合はFalse
     """
     logger.debug({
-        "startus": "start",
+        "status": "start",
         "params": {
             "connect": connect,
             "table_name": table_name,

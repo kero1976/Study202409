@@ -19,7 +19,7 @@ def add_item(resource, table_name, item):
     :return: 成功した場合はTrue、失敗した場合はFalse
     """
     logger.debug({
-        "startus": "start",
+        "status": "start",
         "params": {
             "resource": resource,
             "table_name": table_name,
