@@ -62,7 +62,8 @@ def create_table_if_not_exists(resource, table_name: str, key_schema: list[dict]
     logger.debug({"status": "start", "params": {"resource": resource, "table_name": table_name}})
     try:
         # 既存のテーブルの一覧を取得
-        existing_tables = resource.tables.all()
+        existing_tables = list(resource.tables.all())
+        logger.debug({"status": "run", "message": f"all table len={len(existing_tables)}"})
         if any(table.name == table_name for table in existing_tables):
             logger.info({"status": "success", "message": f"Table {table_name} is exist."})
             return resource.Table(table_name)

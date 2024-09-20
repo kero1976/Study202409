@@ -22,6 +22,7 @@ TEST_METHOD_NAME = "awssample.dynamodb.create.base.create.create_table"
 
 
 def test_create_table_if_exists_mock():
+    """テーブルが既に存在する場合のテスト"""
     # DynamoDB resourceのモックを作成
     resource_mock = MagicMock()
     table_mock = MagicMock()
@@ -39,6 +40,9 @@ def test_create_table_if_exists_mock():
 
 
 def test_create_table_if_not_exists_mock():
+    """テーブルが存在しない場合のテスト
+    create_table_if_not_existsは内部でcreate_tableを呼んでいるので、create_tableをモックにする
+    """
     # DynamoDB resourceのモックを作成
     resource_mock = MagicMock()
     table_mock = MagicMock()
@@ -61,6 +65,8 @@ def test_create_table_if_not_exists_mock():
 
 
 def test_create_table_resource_in_use_mock():
+    """ResourceInUseExceptionが発生する場合のテスト
+    """
     # DynamoDB resourceのモックを作成
     resource_mock = MagicMock()
 
