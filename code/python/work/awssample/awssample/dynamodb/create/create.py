@@ -24,7 +24,7 @@ class Create():
         Args:
             table_name (str): _description_
         """
-        logger.debug({"startus": "start", "params": {"table_name": table_name}})
+        logger.debug({"status": "start", "params": {"table_name": table_name}})
         key_schema = [{
             "AttributeName": "id",  # パーティションキーの属性名
             "KeyType": "HASH"  # パーティションキー

@@ -23,6 +23,6 @@ class Delete():
         Args:
             table_name (str): テーブル名
         """
-        logger.debug({"startus": "start", "params": {"table_name": table_name}})
+        logger.debug({"status": "start", "params": {"table_name": table_name}})
         delete.delete_table(self.connect.get_client(), table_name)
-        logger.debug({"startus": "success"})
+        logger.debug({"status": "success"})
