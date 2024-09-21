@@ -1,3 +1,5 @@
+"""シナリオテスト
+"""
 from awssample.connect.connect import Connect
 from awssample.dynamodb.create.create import Create
 from awssample.dynamodb.drop.delete import Delete

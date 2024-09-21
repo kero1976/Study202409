@@ -1,15 +1,11 @@
-import logging
-from unittest.mock import MagicMock, patch
+"""deleteのテスト
+"""
+from unittest.mock import MagicMock
 
-import boto3
 import pytest
 from awssample.dynamodb.drop.base.delete import delete_table
 from awssample.dynamodb.exception import DynamoDBException
 from botocore.exceptions import ClientError
-
-# logging.getLogger("botocore").setLevel(logging.ERROR)
-# logging.getLogger("urllib3").setLevel(logging.ERROR)
-# logging.getLogger("boto3").setLevel(logging.ERROR)
 
 
 def test_delete_table():
@@ -30,7 +26,7 @@ def test_delete_table_raises_unexpected_error():
         delete_table(resource_mock, "A")
 
 
-def test_delete_table_ResourceNotFound():
+def test_delete_table_resource_not_found():
     resource_mock = MagicMock()
     resource_mock.delete_table.side_effect = ClientError(
         {"Error": {
