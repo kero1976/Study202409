@@ -27,4 +27,4 @@ class Insert():
         :return: 成功した場合はTrue、失敗した場合はFalse
         """
         logger.debug({"status": "start", "params": {"table_name": table_name, "item": item}})
-        add_item(self.connect.get_client(), table_name, item)
+        add_item(self.connect.get_resource(), table_name, item)
