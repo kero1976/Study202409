@@ -27,8 +27,15 @@ class Delete():
         logger.debug({"status": "start", "params": {"table_name": table_name}})
         try:
             delete.delete_table(self.connect.get_client(), table_name)
-            logger.debug({"status": "success"})
+            logger.info({
+                "status": "success",
+                "message": f"'{table_name}' table successfully deleted!"
+            })
             return True
         except DynamoDBException as e:
-            logger.error({"status": "fail", "exception": e})
+            logger.error({
+                "status": "fail",
+                "message": f"delete of '{table_name}' table failed!",
+                "exception": e
+            })
             return False

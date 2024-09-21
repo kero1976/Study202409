@@ -77,8 +77,16 @@ def create_table_if_not_exists(resource, table_name: str, key_schema: list[dict]
         if e.response["Error"]["Code"] == "ResourceInUseException":
             logger.info({"status": "success", "message": f"Table {table_name} is exist."})
             return resource.Table(table_name)
-        logger.error({"status": "fail", "message": "ClientError", "exception": e})
+        logger.error({
+            "status": "fail",
+            "message": f"ClientError! creation of '{table_name}' table failed!",
+            "exception": e
+        })
         raise DynamoDBException("create error.", e) from e
     except Exception as e:
-        logger.error({"status": "fail", "message": "Other Error", "exception": e})
+        logger.error({
+            "status": "fail",
+            "message": f"Other Error! creation of '{table_name}' table failed!",
+            "exception": e
+        })
         raise DynamoDBException("create error.", e) from e

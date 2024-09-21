@@ -32,5 +32,16 @@ def delete_table(client, table_name: str) -> None:
         if e.response["Error"]["Code"] == "ResourceNotFoundException":
             logger.info({"status": "success", "message": f"Table {table_name} does not exist."})
         else:
-            logger.error({"status": "fail", "message": "ClientError", "exception": e})
-            raise DynamoDBException("create error.", e) from e
+            logger.error({
+                "status": "fail",
+                "message": f"ClientError! delete of '{table_name}' table failed!",
+                "exception": e
+            })
+            raise DynamoDBException("delete error.", e) from e
+    except Exception as e:
+        logger.error({
+            "status": "fail",
+            "message": f"Other Error! delete of '{table_name}' table failed!",
+            "exception": e
+        })
+        raise DynamoDBException("delete error.", e) from e

@@ -43,8 +43,15 @@ class Create():
             create_table_if_not_exists(self.connect.get_resource(), table_name, key_schema,
                                        attribute_definitions, provisioned_throughput)
 
-            logger.info({"status": "success"})
+            logger.info({
+                "status": "success",
+                "message": f"'{table_name}' table successfully created!"
+            })
             return True
         except DynamoDBException as e:
-            logger.error({"status": "fail", "exception": e})
+            logger.error({
+                "status": "fail",
+                "message": f"creation of '{table_name}' table failed!",
+                "exception": e
+            })
             return False
