@@ -5,6 +5,7 @@ from logging import getLogger
 
 from awssample.connect.connect import Connect
 from awssample.dynamodb.drop.base import delete
+from awssample.dynamodb.exception import DynamoDBException
 
 # ロガーの作成
 logger = getLogger(__name__)
@@ -17,12 +18,17 @@ class Delete():
     def __init__(self, connect: Connect):
         self.connect = connect
 
-    def delete_table(self, table_name: str) -> None:
+    def delete_table(self, table_name: str) -> bool:
         """テーブル削除
 
         Args:
             table_name (str): テーブル名
         """
         logger.debug({"status": "start", "params": {"table_name": table_name}})
-        delete.delete_table(self.connect.get_client(), table_name)
-        logger.debug({"status": "success"})
+        try:
+            delete.delete_table(self.connect.get_client(), table_name)
+            logger.debug({"status": "success"})
+            return True
+        except DynamoDBException as e:
+            logger.error({"status": "fail", "exception": e})
+            return False

@@ -3,6 +3,7 @@ DynamoDB テーブル削除用ファイル
 """
 from logging import getLogger
 
+from awssample.dynamodb.exception import DynamoDBException
 from botocore.exceptions import ClientError
 
 # ロガーの作成
@@ -32,4 +33,4 @@ def delete_table(client, table_name: str) -> None:
             logger.info({"status": "success", "message": f"Table {table_name} does not exist."})
         else:
             logger.error({"status": "fail", "message": "ClientError", "exception": e})
-            raise
+            raise DynamoDBException("create error.", e) from e
