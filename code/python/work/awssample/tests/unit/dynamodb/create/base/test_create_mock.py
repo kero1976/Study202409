@@ -1,16 +1,11 @@
-import logging
+"""Mockを使って実際にAWSリソースにはアクセスしないcreateのテストファイル
+"""
 from unittest.mock import MagicMock, patch
 
-import boto3
 import pytest
 from awssample.dynamodb.create.base.create import create_table_if_not_exists
 from awssample.dynamodb.exception import DynamoDBException
 from botocore.exceptions import ClientError
-from moto import mock_aws
-
-logging.getLogger("botocore").setLevel(logging.ERROR)
-logging.getLogger("urllib3").setLevel(logging.ERROR)
-logging.getLogger("boto3").setLevel(logging.ERROR)
 
 # モックデータ
 table_name = "TestTable"

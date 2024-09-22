@@ -1,4 +1,4 @@
-"""deleteのテスト
+"""Mockを使って実際にAWSリソースにはアクセスしないdelete tableのテストファイル
 """
 from unittest.mock import MagicMock
 

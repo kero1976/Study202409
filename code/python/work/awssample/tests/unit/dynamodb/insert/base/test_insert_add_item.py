@@ -1,13 +1,9 @@
-import logging
-from unittest.mock import MagicMock, patch
+"""Mockを使って実際にAWSリソースにはアクセスしないinsertのテストファイル
+"""
+from unittest.mock import MagicMock
 
-import boto3
 from awssample.dynamodb.insert.base.insert import add_item
 from botocore.exceptions import ClientError
-
-# logging.getLogger("botocore").setLevel(logging.ERROR)
-# logging.getLogger("urllib3").setLevel(logging.ERROR)
-# logging.getLogger("boto3").setLevel(logging.ERROR)
 
 
 def test_add_item_mock_ok():
