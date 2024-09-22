@@ -16,6 +16,7 @@ class Insert():
 
     def __init__(self, connect: Connect):
         self.connect = connect
+        self.resource = None
 
     # DynamoDBのテーブルにデータを追加する関数
     def add_item(self, table_name: str, item: dict):
@@ -27,4 +28,6 @@ class Insert():
         :return: 成功した場合はTrue、失敗した場合はFalse
         """
         logger.debug({"status": "start", "params": {"table_name": table_name, "item": item}})
-        add_item(self.connect.get_resource(), table_name, item)
+        if self.resource is None:
+            self.resource = self.connect.get_resource()
+        add_item(self.resource, table_name, item)
